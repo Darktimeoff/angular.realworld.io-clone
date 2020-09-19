@@ -1,0 +1,16 @@
+.feeds{
+    margin-top: 50px;
+    &-wrapper{
+        display: flex;
+        height: 100%;
+        justify-content: space-between;
+    }
+    &-item{
+        padding-right: 15px;
+        padding-left: 15px;
+        &:first-child{
+            flex: 0 0 75%;
+            max-width: 75%;
+        }
+    }
+}

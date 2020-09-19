@@ -1,0 +1,22 @@
+.auth-login{
+    &-wrapper {
+        display: flex;
+        margin-top: 1.5rem;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        flex-grow: 1;
+    }
+    &-title {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 0.5rem;
+        color: black;
+    }
+    &-subtitle {
+        margin-bottom: 1rem;
+    }
+    &-register{
+        color: #5cb85c;
+    }
+}

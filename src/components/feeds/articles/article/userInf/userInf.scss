@@ -1,0 +1,45 @@
+.user{
+    &-meta-item {
+        display: flex;
+        align-items: center;
+        button {
+            margin-bottom: auto;
+        }
+    }
+    &-profile-link{
+        align-self: center;
+    }
+    &-profile-link img{
+        height: 32px;
+        width: 32px;
+        border-radius: 30px;
+    }
+    &-meta-info{
+        margin: 0 1.5rem 0 .3rem;
+        line-height: 1rem;
+    }
+    &-login-name{
+        display: block;
+        font-weight: 400;
+        color: #5cb85c;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+    &-date{
+        font-size: .8rem;
+        display: block;
+        color: rgba(0,0,0,.3);
+    }
+}
+.user-meta-item.articleFull{
+    .user-login-name{
+        color: white;
+    }
+    .user-date{
+        color:#bbb;
+    }
+    button {
+        margin-bottom: auto;
+    }
+}

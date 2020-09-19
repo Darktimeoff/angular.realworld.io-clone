@@ -1,0 +1,25 @@
+
+.nav-list{
+    display: flex;
+    align-items: center;
+}
+
+.nav-item{
+    margin-right: 10px;
+    &:last-child{
+        margin-right: 0;
+    }
+}
+.nav-link{
+    display: inline-block;
+    padding-top: .425rem;
+    padding-bottom: .425rem;
+    color:   rgba(0,0,0,.3);
+    transition: color .2s linear;
+    &:hover{
+        color:   rgba(0,0,0,.7);
+    }
+}
+.nav-item span {
+    margin-right: 5px;
+}

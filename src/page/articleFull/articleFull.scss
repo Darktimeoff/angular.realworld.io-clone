@@ -1,0 +1,10 @@
+.articleFull-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+}
