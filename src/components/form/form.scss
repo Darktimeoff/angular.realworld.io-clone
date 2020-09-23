@@ -27,5 +27,12 @@
         border: 1px solid transparent;
         color: white;
         background-color: #5cb85c;
+        &:disabled {
+            cursor: not-allowed;
+            opacity: .65;
+        }
     }
+}
+.auth-login-error {
+    color: red;
 }
