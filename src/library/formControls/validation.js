@@ -6,3 +6,7 @@ export function validateEmail(email) {
 export function validatePassword(password) {
     return password.length < 8 ? false : true;
 }
+
+export function validateUsername(username) {
+    return username.length < 5 ? false : true;
+}

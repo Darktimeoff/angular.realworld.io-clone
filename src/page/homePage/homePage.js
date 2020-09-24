@@ -18,7 +18,7 @@ const HomePage = props => {
         'test', 
         'dragons',
         'butt'
-    ]
+    ];
     const articleList = [
         {
             hrefProfile: '/profile/Darktime',
@@ -65,7 +65,8 @@ const HomePage = props => {
 
             }
         }
-    ]
+    ];
+
     return (
         <>
             <Information title="medium" subtitle="A place to share your React knowledge"/>

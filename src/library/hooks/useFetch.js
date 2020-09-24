@@ -15,7 +15,7 @@ export function useFetch(url) {
 
     useEffect(() => {
         if(!isLoading) return;
-
+        console.log(options);
         axios(baseUrl + url, options)
             .then(res => {
                 setResponse(res.data);
@@ -25,8 +25,8 @@ export function useFetch(url) {
             .catch(error => {
                 setError(error);
                 setIsLoading(false);
-            })
-    }, [isLoading]) 
+            }) 
+    }, [isLoading, baseUrl, url, options]); 
 
     return [{response, error, isLoading}, doFetch]
 }

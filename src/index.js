@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import  Routes  from './routes';
 import './index.scss'
-import NavDefault from './components/navBar/navDefault/navDefault';
-//import NavAuth from './components/navBar/navAuth/navAuth';
+import Context from './context/Context';
+
 
 
 
@@ -13,12 +13,11 @@ import NavDefault from './components/navBar/navDefault/navDefault';
 
 const App = () => {
 	return (
-		<>
+		<Context>
 			<BrowserRouter>
-				<NavDefault />
 				<Routes />
 			</BrowserRouter>
-		</>
+		</Context>
 	)
 }
 

@@ -1,9 +1,8 @@
 import React from 'react';
+import { CurrentUserProvider } from './currentUser/currentUserProvider';
 
-const Context = ({children}) => {
-    return (
+export default ({children}) => (
+    <CurrentUserProvider>
         {children}
-    )
-}
-
-export default Context;
+    </CurrentUserProvider>
+)

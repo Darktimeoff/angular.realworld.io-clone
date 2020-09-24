@@ -10,3 +10,8 @@ export const passwordHandler = (setPassword) => {
     }
 }
 
+export const usernameHandler = (setUsername) => {
+    return (event) => {
+        setUsername(event.target.value);
+    }
+}
