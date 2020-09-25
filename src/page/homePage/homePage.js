@@ -10,6 +10,7 @@ const HomePage = props => {
     const articleUrl = isMyFeed ? 'articles/feed' : 'articles';
     const [{response:tags}, doFetchTags] = useFetch('/tags');
     const [{response:articles}, doFetchArtciles] = useFetch(`/${articleUrl}?limit=10&offset=0`);
+    
 
     const tabsLink = [
         {text: 'Your Feed', href: user.isLoggedIn ? '/' : '/login', exact: true, onClick:() => setIsMyFeed(true)},

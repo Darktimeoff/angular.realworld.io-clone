@@ -3,7 +3,7 @@ import Article from './article/article';
 
 const Articles = props => {
     const createArticle = (article, i) => {
-        return <Article key={i} {...article} />
+        return <Article updateArticles={props.updateArticles} key={i} {...article} />
     }
     return (
         <>

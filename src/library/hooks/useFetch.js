@@ -37,5 +37,5 @@ export function useFetch(url) {
             }) 
     }, [isLoading, baseUrl, url, options, token]); 
 
-    return [{response, error, isLoading}, doFetch]
+    return [{response, error, isLoading, setResponse}, doFetch]
 }
