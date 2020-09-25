@@ -13,7 +13,7 @@ const Feeds = props => {
                        <Tabs links={props.tabsLink} />
                        <div className="feed">
                             <div className="feed-wrapper">
-                                <Articles articleList={props.articleList}/>
+                                {props.articleList.length ? <Articles articleList={props.articleList}/> :  <p style={{textAlign: 'center'}}>No articles are here... yet.</p>}
                             </div>
                         </div>
                     </div>

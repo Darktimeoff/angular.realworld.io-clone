@@ -4,19 +4,16 @@ import { BrowserRouter } from 'react-router-dom';
 import  Routes  from './routes';
 import './index.scss'
 import Context from './context/Context';
-
-
-
-
-
-
+import CurrentUserChecker from './components/currentUserChecker/currentUserChecker';
 
 const App = () => {
 	return (
 		<Context>
-			<BrowserRouter>
-				<Routes />
-			</BrowserRouter>
+			<CurrentUserChecker>
+				<BrowserRouter>
+					<Routes />
+				</BrowserRouter>
+			</CurrentUserChecker>
 		</Context>
 	)
 }

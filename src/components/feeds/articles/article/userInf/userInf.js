@@ -4,10 +4,10 @@ import {Link} from 'react-router-dom';
 
 const UserInf = props => (
     <div className={props.articleFull ? "user-meta-item articleFull" : "user-meta-item"}>
-        <Link to="/profile" className="user-profile-link"><img src={props.meta.src} alt="avatar" /></Link>
+        <Link to={`/profile/${props.author.username}`} className="user-profile-link"><img src={props.author.image} alt="avatar" /></Link>
             <div className="user-meta-info">
-                <Link to={props.hrefProfile} className="user-login-name">{props.meta.username}</Link>
-                <time className="user-date">{props.meta.date}</time>
+                <Link to={`/profile/${props.author.username}`} className="user-login-name">{props.author.username}</Link>
+                <time className="user-date">{new Date(props.createdAt).toLocaleDateString()}</time>
         </div>
         {props.children}
    </div>

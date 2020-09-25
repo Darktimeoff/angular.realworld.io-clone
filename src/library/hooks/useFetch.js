@@ -1,5 +1,6 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import axios from 'axios';
+import { useLocalStorage } from './useLocalStorage';
 
 export function useFetch(url) {
     const baseUrl = `https://conduit.productionready.io/api`;
@@ -7,16 +8,24 @@ export function useFetch(url) {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [options, setOptions] = useState({});
+    const [token] = useLocalStorage('jwtToken');
 
-    function doFetch(options = {}) {
+    const doFetch = useCallback((options = {}) =>  {
         setOptions(options);
         setIsLoading(true);
-    }
+    }, [])
 
     useEffect(() => {
+        const requestOptions = {
+            ...options,
+            ...{
+                headers: {
+                    authorization: token ? `Token ${token}` : ''
+                }
+            }
+        }
         if(!isLoading) return;
-        console.log(options);
-        axios(baseUrl + url, options)
+        axios(baseUrl + url, requestOptions)
             .then(res => {
                 setResponse(res.data);
                 setIsLoading(false);
@@ -26,7 +35,7 @@ export function useFetch(url) {
                 setError(error);
                 setIsLoading(false);
             }) 
-    }, [isLoading, baseUrl, url, options]); 
+    }, [isLoading, baseUrl, url, options, token]); 
 
     return [{response, error, isLoading}, doFetch]
 }

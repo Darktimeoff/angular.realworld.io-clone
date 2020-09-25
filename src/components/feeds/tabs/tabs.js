@@ -1,9 +1,9 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import './tabs.scss'
 const Tabs = props => {
-    const createLink = ({text='', href='/', defaultActive}, i) => {
-        return  <li className="tabs-item"key={i}><Link to={href} className={defaultActive ? 'tabs-link active': 'tabs-link'}>{text}</Link></li>
+    const createLink = ({text='', href='/', exact=false, onClick}, i) => {
+        return  <li className="tabs-item" key={i} onClick={onClick}><NavLink to={href} exact={exact}  className={'tabs-link'}>{text}</NavLink></li>
     }
     return (
         <div className="tabs">

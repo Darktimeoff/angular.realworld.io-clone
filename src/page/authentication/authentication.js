@@ -18,9 +18,9 @@ const Authentication = props => {
     const [password, setPassword] = useState('');
     const [{response, isLoading, error}, doFetch] = useFetch(apiUrl)
     const [isSuccessfullSubmit, setIsSuccessfulSubmit] = useState(false);
-    const [token, setToken] = useLocalStorage('jwtToken');
-    const [currentUserState, setCurrentUserState] = useContext(CurrentUserContext);
-
+    const [,setToken] = useLocalStorage('jwtToken');
+    const [,setCurrentUserState] = useContext(CurrentUserContext);
+   
     const  formControlsSignIn =  functions.addDateToFormControls(creators.signInControls , [
         {value:email, onChangeHandler: handlers.emailHandler(setEmail), validation: validations.validateEmail},
         {value:password, onChangeHandler: handlers.passwordHandler(setPassword), validation: validations.validatePassword},
