@@ -16,3 +16,10 @@ export const settingsControls = [
     {tag: 'input', name: 'email', placeholder: 'Email'},
     {tag: 'input', name: 'newpassword', placeholder: 'New Password', required: 'false'},
 ];
+
+export const newArticleControls =  [
+    {tag: 'input', name: 'title', placeholder: 'Article Title'},
+    {tag: 'input', name: 'about', placeholder: 'What`s this article about'},
+    {tag: 'textarea', name: 'article', placeholder: 'Write your article(in markdown)', rows: '8'},
+    {tag: 'input', name: 'tags', placeholder: 'Enter tags'},
+];

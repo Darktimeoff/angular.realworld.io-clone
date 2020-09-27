@@ -4,7 +4,7 @@ import Form from './../../components/form/form';
 import { creators, handlers, functions, validations} from '../../library/formLibrary';
 import { CurrentUserContext } from './../../context/currentUser/currentUserContext';
 import { useFetch, useLocalStorage } from './../../library/hooksLibrary';
-import { Redirect } from 'react-router-dom'
+
 
 const Settings = props => {
     const [currentUser, setCurrentUserState] = useContext(CurrentUserContext);
