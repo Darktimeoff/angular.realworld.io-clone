@@ -15,3 +15,9 @@ export const usernameHandler = (setUsername) => {
         setUsername(event.target.value);
     }
 }
+
+export const inputHandler = (setInput) => {
+    return (event) => {
+        setInput(event.target.value);
+    }
+}

@@ -1,12 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import {Link} from 'react-router-dom';
 import './article.scss';
 import TagsList from './../../tags/tagsList/tagsList';
 import UserInf from './userInf/userInf';
 import { useFetch } from './../../../../library/hooksLibrary';
+import { CurrentUserContext } from './../../../../context/currentUser/currentUserContext';
+import {withRouter} from 'react-router-dom'
 
 
 const Article = (props) => {
+    const [user] = useContext(CurrentUserContext);
     const [like, setLike] = useState(props.favoritesCount);
     const [, doFetch] = useFetch(`/articles/${props.slug}/favorite`);
     const [isLike, setIsLike] = useState(props.favorited);
@@ -17,6 +20,11 @@ const Article = (props) => {
     }
 
     function addLike() {
+        if(!user.isLoggedIn) {
+            props.history.push('/login');
+            return;
+        }
+
         if(isLike) {
             setLike(prevState => prevState - 1);
             setIsLike(false);
@@ -51,4 +59,4 @@ const Article = (props) => {
     );
 }
 
-export default Article;
+export default withRouter(Article);

@@ -1,14 +1,14 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 import './navList.scss';
 
 const NavList = props => {
     const linkText = ({text, href}, i) => {
-        return  <li className="nav-item" key={i}><Link to={href} className="nav-link">{text}</Link></li>
+        return  <li className="nav-item" key={i}><NavLink to={href}  exact={true} className="nav-link">{text}</NavLink></li>
     }
     const linkIcon = ({text, href, icon}, i) => {
-        return  <li className="nav-item" key={i}><span><i className={icon}></i></span><Link to={href} className="nav-link">{text}</Link></li>
+        return  <li className="nav-item" key={i}><span><i className={icon}></i></span><NavLink to={href} className="nav-link">{text}</NavLink></li>
     }
     return (
         <ul className="nav-list">

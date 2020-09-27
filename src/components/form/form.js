@@ -13,7 +13,7 @@ const Form = props => {
                 required={required} 
                 onChange={(event) => {
                     touched.current = true;
-                    valid.current = validation(event.target.value);
+                    valid.current = typeof validation === "function"? validation(event.target.value) : true;
                     isValid.current = touched.current && valid.current
                     onChangeHandler(event);
                 }} 

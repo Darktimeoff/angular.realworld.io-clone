@@ -6,7 +6,7 @@ import { useFetch } from './../../library/hooksLibrary';
 
 const HomePage = props => {
     const [user] = useContext(CurrentUserContext);
-    const [isMyFeed, setIsMyFeed] = useState(true);
+    const [isMyFeed, setIsMyFeed] = useState(user.isLoggedIn);
     const articleUrl = isMyFeed ? 'articles/feed' : 'articles';
     const [{response:tags}, doFetchTags] = useFetch('/tags');
     const [{response:articles}, doFetchArtciles] = useFetch(`/${articleUrl}?limit=10&offset=0`);
