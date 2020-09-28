@@ -19,7 +19,7 @@ const Feeds = props => {
                     </div>
                     { props.tagsList 
                         ?  <div className="feeds-item">
-                             <Tags tagsList={props.tagsList}/>
+                             <Tags onClickHandler={props.onTagsClickHandler} tagsList={props.tagsList}/>
                         </div>
                         : null
                     }

@@ -6,15 +6,17 @@ import { useFetch } from './../../library/hooksLibrary';
 
 const HomePage = props => {
     const [user] = useContext(CurrentUserContext);
+    const [tag, setTag] = useState('');
     const [isMyFeed, setIsMyFeed] = useState(user.isLoggedIn);
-    const articleUrl = isMyFeed ? 'articles/feed' : 'articles';
+    const articlesUrl = isMyFeed ? '/articles/feed?limit=10&offset=0' : '/articles?limit=10&offset=0';
+    const [articleUrl, setArticleUrl] = useState(articlesUrl);
     const [{response:tags}, doFetchTags] = useFetch('/tags');
-    const [{response:articles}, doFetchArtciles] = useFetch(`/${articleUrl}?limit=10&offset=0`);
+    const [{response:articles}, doFetchArtciles] = useFetch(articleUrl);
     
-
+    
     const tabsLink = [
-        {text: 'Your Feed', href: user.isLoggedIn ? '/' : '/login', exact: true, onClick:() => setIsMyFeed(true)},
-        {text: 'Global Feed', href: '#', onClick:() => setIsMyFeed(false)}
+        {text: 'Your Feed', href: user.isLoggedIn ? '/' : '/login', exact: true, onClick:() => {setIsMyFeed(true);setArticleUrl(articlesUrl);setTag('');}},
+        {text: 'Global Feed', href: '#', onClick:() => {setIsMyFeed(false);setArticleUrl(articlesUrl);setTag('');}}
     ];
 
     let tagsList = [];
@@ -23,6 +25,11 @@ const HomePage = props => {
     useEffect(() => {
         doFetchTags();
     },[]);
+
+    useEffect(() => {
+        if(!articles) return;
+        if(!tag) doFetchArtciles();
+    }, [tag, doFetchArtciles])
 
     useEffect(() => {
         doFetchArtciles();
@@ -35,11 +42,22 @@ const HomePage = props => {
     if(articles) {
         articleList = articles.articles;
     }
+
+    function tagsClickHandler(name) {
+        setArticleUrl(`/articles?tag=${name}&limit=10&offset=0`);
+        setTag(name);
+        doFetchArtciles();
+    }
+ 
+    if(tag) {
+        tabsLink.push({text:`#${tag}`, href:'/'})
+    }
+
  
     return (
         <>
             {user.isLoading || user.isLoggedIn ? null : <Information title="medium" subtitle="A place to share your React knowledge"/>}
-            {articles && tags ? <Feeds tabsLink={tabsLink} tagsList={tagsList} articleList={articleList}/> :  <p style={{textAlign: 'center'}}>Loading...</p>}
+            {articles && tags ? <Feeds tabsLink={tabsLink} onTagsClickHandler={tagsClickHandler} tagsList={tagsList} articleList={articleList}/> :  <p style={{textAlign: 'center'}}>Loading...</p>}
         </>
     )
 }

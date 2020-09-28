@@ -24,7 +24,7 @@ const NewArticle = props => {
 
     function submitHandler(event) {
         event.preventDefault();
-        doFetch({ method: 'post', data: {article: {tagList: tags || [], title, description, body}}})
+        doFetch({ method: 'post', data: {article: {tagList: tags.split(',') || [], title, description, body}}})
     }
 
     return (

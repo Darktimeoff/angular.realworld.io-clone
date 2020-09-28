@@ -6,7 +6,7 @@ const Tags = props => {
     return (
         <aside className="tags">
             <h2 className="tags-title">Popular tags</h2>
-            <TagsList tagsList={props.tagsList} />
+            <TagsList onClickHandler={props.onClickHandler} tagsList={props.tagsList} />
         </aside>
     )
 }

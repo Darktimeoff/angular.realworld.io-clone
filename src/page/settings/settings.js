@@ -14,7 +14,7 @@ const Settings = props => {
     const [bio, setBio] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [{response, error, isLoading}, doFetch] = useFetch('/user');
-    const [token, setToken] = useLocalStorage('jwtToken')
+    const [,setToken] = useLocalStorage('jwtToken')
 
     useEffect(() => {
         if(!currentUser.currentUser) return;
