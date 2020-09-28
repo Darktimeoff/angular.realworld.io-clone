@@ -6,6 +6,7 @@ export function useLocalStorage(key, initialValue='') {
     });
 
     useEffect(() => {
+        console.log(key, value)
         localStorage.setItem(key, value);     
     }, [value, key])
 

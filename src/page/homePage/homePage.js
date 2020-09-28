@@ -15,12 +15,9 @@ const HomePage = props => {
     
     
     const tabsLink = [
-        {text: 'Your Feed', href: user.isLoggedIn ? '/' : '/login', exact: true, onClick:() => {setIsMyFeed(true);setArticleUrl(articlesUrl);setTag('');}},
-        {text: 'Global Feed', href: '#', onClick:() => {setIsMyFeed(false);setArticleUrl(articlesUrl);setTag('');}}
+        {text: 'Your Feed', href: user.isLoggedIn ? '/' : '/login', exact: true, onClick:() => {setIsMyFeed(true);setArticleUrl('/articles/feed?limit=10&offset=0');setTag('');}},
+        {text: 'Global Feed', href: '#', onClick:() => {setIsMyFeed(false);setArticleUrl('/articles?limit=10&offset=0');setTag('');}}
     ];
-
-    let tagsList = [];
-    let articleList = [];
     
     useEffect(() => {
         doFetchTags();
@@ -34,14 +31,6 @@ const HomePage = props => {
     useEffect(() => {
         doFetchArtciles();
     },[isMyFeed, doFetchArtciles])
-
-    if(tags) {
-        tagsList = tags.tags;
-    }
-
-    if(articles) {
-        articleList = articles.articles;
-    }
 
     function tagsClickHandler(name) {
         setArticleUrl(`/articles?tag=${name}&limit=10&offset=0`);
@@ -57,7 +46,7 @@ const HomePage = props => {
     return (
         <>
             {user.isLoading || user.isLoggedIn ? null : <Information title="medium" subtitle="A place to share your React knowledge"/>}
-            {articles && tags ? <Feeds tabsLink={tabsLink} onTagsClickHandler={tagsClickHandler} tagsList={tagsList} articleList={articleList}/> :  <p style={{textAlign: 'center'}}>Loading...</p>}
+            {articles && tags ? <Feeds tabsLink={tabsLink} onTagsClickHandler={tagsClickHandler} tagsList={tags.tags} articleList={articles.articles}/> :  <p style={{textAlign: 'center'}}>Loading...</p>}
         </>
     )
 }

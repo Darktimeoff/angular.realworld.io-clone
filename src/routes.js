@@ -26,7 +26,7 @@ export default () => {
                 <Route path="/register" component={Authentication} />
                 <Route path="/editor" component={NewArticle} />
                 <Route path="/settings" component={Settings} />
-                <Route path="/profile" component={Profile} />
+                <Route path="/profile/:username" component={Profile} />
                 <Route path="/article" component={ArticleFull} />
                 <Redirect to="/" />
             </Switch>
