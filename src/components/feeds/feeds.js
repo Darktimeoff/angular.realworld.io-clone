@@ -30,7 +30,7 @@ const Feeds = props => {
                 setArticleUrl(link.fetchUrl+`limit=${limit}&offset=0`);
                 setResponse(null);
                 doFetchArtciles();
-                props.push(props.match.url);
+                props.history.push(props.match.url);
             }
         }
     })
@@ -68,7 +68,7 @@ const Feeds = props => {
                                 {articles && !articles.articles.length ? <p style={{textAlign: 'center'}}>No articles are here... yet.</p> : null}
                                 {isLoadingArticles ? <Loader /> : null}
                                 {errorArticles ? <BackendErrors errors={errorArticles.errors} /> : null}
-                                {articles && !isLoadingArticles ? <Pagination url={props.match.url}/> : null}
+                                {articles ? <Pagination url={props.match.url}/> : null}
                             </div>
                         </div>
                     </div>

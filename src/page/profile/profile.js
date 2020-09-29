@@ -11,8 +11,8 @@ const Profile = props => {
     const [isAuthProfile, setIsAuthProfile] = useState(false);
     const usernameParams = props.match.params.username;
     const [{response:profile}, doFetchProfile] = useFetch(`/profiles/${usernameParams}`); 
-    const myPostsUrl = `/articles?author=${usernameParams}&limit=10&offset=0`;
-    const favoritePostUrl =  `/articles?favorited=${usernameParams}&limit=10&offset=0`;
+    const myPostsUrl = `/articles?author=${usernameParams}&`;
+    const favoritePostUrl = `/articles?favorited=${usernameParams}&`;
 
     const authInf = {
         icon:'fas fa-cog',

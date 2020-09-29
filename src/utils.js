@@ -14,5 +14,5 @@ export const getPaginator = search => {
 }
 
 export const searchAndDeleteQuery = (str) => {
-    return str.slice(0, str.indexOf('?') + 1)
+    return str.slice(0, str.indexOf('limit'))
 }
