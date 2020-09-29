@@ -1,48 +1,81 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './articleFull.scss';
 import Information from './../../components/information/information';
 import UserInf from './../../components/feeds/articles/article/userInf/userInf';
 import TagsList from '../../components/feeds/tags/tagsList/tagsList';
 import Form from './../../components/form/form';
+import { CurrentUserContext } from './../../context/currentUser/currentUserContext';
+import { useFetch } from './../../library/hooksLibrary';
+import { Link } from 'react-router-dom';
+import { creators, handlers, functions } from './../../library/formLibrary';
+import Comments from './../../components/comments/comments';
+import FavoriteButton from '../../components/button/FavoriteButton/FavoriteButton';
+import FollowButton from '../../components/button/followButton/followButton';
 
 const ArticleFull = props => {
-    const userInf = {
-        hrefProfile: '/profile',
-        meta: {
-            date: new Date().toLocaleDateString(),
-            username: 'Darktime',
-            src: 'https://png.pngtree.com/png-vector/20190828/ourlarge/pngtree-smile-icon-template-design-smiling-emoticon-vector-logo-on-yellow-background-png-image_1715036.jpg'
+    const [user] = useContext(CurrentUserContext);
+    const [{response:articles}, doFetchArtciles] = useFetch(`/articles/${props.match.params.slug}`);
+    const [{response:comments}, doFetchComment] = useFetch(`/articles/${props.match.params.slug}/comments`);
+    const [commentState, setCommentState] = useState('');
+    const [commentList, setCommentList] = useState([]);
+    const [isComment, setIsComment] = useState(false);
+    const formControlsCreate = functions.addDateToFormControls(creators.commentsControls , [
+        {value:commentState, onChangeHandler: handlers.inputHandler(setCommentState), required: false},
+    ]);
+
+    useEffect(() => {
+        doFetchArtciles();
+        doFetchComment({method: 'get'})
+    }, []);
+
+    useEffect(() => {
+        if(!comments) return;
+        if(Array.isArray(comments.comments)) setCommentList(comments.comments);
+        if(comments.comment) setCommentList(prevState => ([comments.comment, ...prevState]))
+    }, [comments,doFetchComment])
+
+
+    useEffect(() => {
+        if(!articles) return;
+        if(isComment) {
+            doFetchComment({method: 'post', data: {body: commentState}});
+            setIsComment(false);
+            setCommentState('')
         }
+    },[isComment,setIsComment, doFetchComment]);
+
+
+    const submitHandler = (event) => {
+        event.preventDefault();
+        setIsComment(true);
     }
-    const tagsList = ['Dark', 'zzz', 'fizz'];
-    const formControlsCreate = [
-        {tag: 'textarea', name: 'comment', placeholder: 'Write a commet', rows: '8'},
-    ];
+
+
     return (
         <>
-            <Information article="true" title="Darktime" buttonText={`Follow Darktime`} icon="fas fa-plus">
-                <UserInf hrefProfile={userInf.hrefProfile} meta={userInf.meta} articleFull="true" >
-                    <button className="information-button"><span className="information-button-icon"><i className='fas fa-plus'></i></span>{`Follow Hren`}</button>
-                    <button className="article-button-like"><span className="like"><i className="fas fa-heart"></i></span>Favorite Article(0)</button>
+           {articles ?  <Information article="true" title={articles.article.title} buttonText={`Follow Darktime`}>
+                <UserInf articleFull="true" author={articles.article.author} createdAt={articles.article.createdAt}>
+                    <FollowButton username={articles.article.author.username} following={articles.article.author.following} />
+                    <FavoriteButton slug={props.match.params.slug} favorited={articles.article.favorited} favoritesCount={articles.article.favoritesCount} isFavoriteButton={true}/>
                 </UserInf>
-            </Information>
-            <div className="container">
+            </Information> : null}
+            {articles ? <div className="container">
                     <div className="articleFull-wrapper">
                         <article className="article">
-                            Lorem ipsum dolor sit amet, con Lorem
-                            Lorem ipsum dolor sit amet, con Lorem
-                            Lorem ipsum dolor sit amet, con Lorem
-                            Lorem ipsum dolor sit amet, con Lorem
-                            <TagsList tagsList={tagsList}/>
+                            {articles.article.body}
+                            <TagsList tagsList={articles.article.tagList}/>
                         </article>
                         <hr/>
-                        <UserInf hrefProfile={userInf.hrefProfile} meta={userInf.meta} >
-                            <button className="information-button"><span className="information-button-icon"><i className='fas fa-plus'></i></span>{`Follow Hren`}</button>
-                            <button className="article-button-like"><span className="like"><i className="fas fa-heart"></i></span>Favorite Article(0)</button>
+                        <UserInf author={articles.article.author} createdAt={articles.article.createdAt}  >
+                            <FollowButton username={articles.article.author.username} following={articles.article.author.following} />
+                            <FavoriteButton slug={props.match.params.slug} favorited={articles.article.favorited} favoritesCount={articles.article.favoritesCount} isFavoriteButton={true}/>
                         </UserInf>
-                        <Form controlsCreate={formControlsCreate} buttonText='Post Comment'/>
+                       <div className="articlFull-comments-wrapper">
+                            {user.isLoggedIn ? <Form onSubmitHandler={submitHandler} controlsCreate={formControlsCreate} buttonText='Post Comment'/> : <p style={{paddingTop: 50}}><Link to='/login'>Sign In</Link>or <Link to='/register'>sign up</Link> to add comments on this article.</p> }
+                            {commentList.length ? <Comments comments={commentList}/> : null}
+                       </div>
                     </div>
-            </div>
+            </div> : null}
 
         </>
     )

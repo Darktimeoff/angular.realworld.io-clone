@@ -23,3 +23,7 @@ export const newArticleControls =  [
     {tag: 'textarea', name: 'article', placeholder: 'Write your article(in markdown)', rows: '8'},
     {tag: 'input', name: 'tags', placeholder: 'Enter tags'},
 ];
+
+export const commentsControls = [
+    {tag: 'textarea', name: 'comment', placeholder: 'Write a commet', rows: '8'},
+];

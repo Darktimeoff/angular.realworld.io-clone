@@ -39,7 +39,7 @@ const Settings = props => {
             ...prevState.currentUser,
             password:newPassword, bio, image:url, email, username
         }}));
-        //props.history.push(`/profile/${currentUser.currentUser.username}`);
+        props.history.push(`/profile/${currentUser.currentUser.username}`);
     }
 
     const logOut = () => {
