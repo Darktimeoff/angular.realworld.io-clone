@@ -3,12 +3,11 @@ import Information from './../../components/information/information';
 import Feeds from './../../components/feeds/feeds';
 import { useFetch } from './../../library/hooksLibrary';
 import { CurrentUserContext } from './../../context/currentUser/currentUserContext';
+import FollowButton from '../../components/button/followButton/followButton';
 
 const Profile = props => {
     const [user] = useContext(CurrentUserContext);
     const [{response:profile}, doFetchProfile] = useFetch(`/profiles/${props.match.params.username}`); 
-    const [,doFetchFollow] = useFetch(`/profiles/${props.match.params.username}/follow`); 
-    const [isFollowing, setIsFollowing] = useState(profile ? profile.profile.following : false);
     const [isMyPosts, setIsMyPosts] = useState(true);
     const articleUrl = isMyPosts ? `/articles?author=${props.match.params.username}&limit=10&offset=0` : `/articles?favorited=${props.match.params.username}&limit=10&offset=0`;
     const [{response:articles}, doFetchArtciles] = useFetch(articleUrl);
@@ -26,21 +25,10 @@ const Profile = props => {
         doFetchArtciles();
     }, [isMyPosts, doFetchArtciles]);
 
-    useEffect(() => {
-        if(!profile) return;
-        if(isFollowing) doFetchFollow({method: 'post', data:{}});
-        else doFetchFollow({method: 'delete'});
-    }, [isFollowing, doFetchFollow]);
-
-    const buttonClickHandler = () => {
-        if(user.isLoggedIn) setIsFollowing(prevState => !prevState)
-        else props.history.push('/login');
-        
-    }
 
     return (
         <>
-            { profile ? <Information onButtonClickHandler={buttonClickHandler} img={profile.profile.image} title={profile.profile.username} subtitle={profile.profile.bio} icon="fas fa-plus" profile={true} buttonText={isFollowing ? `Unfollow ${profile.profile.username} ` : `Follow ${profile.profile.username}`}/> : null}
+            { profile ? <Information img={profile.profile.image} title={profile.profile.username} subtitle={profile.profile.bio}  profile={true}><FollowButton username={props.match.params.username} following={profile.profile.following} /></Information> : null}
             { articles ? <Feeds tabsLink={tabsLink} articleList={articles.articles} /> : null}
         </>
     )
