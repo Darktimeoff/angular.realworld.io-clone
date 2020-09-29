@@ -13,19 +13,20 @@ const FavoriteButton = props => {
         backgroundColor: '#5cb85c',
         color: 'white'
     }
-
-    useEffect(() => {
-        if(isFavorite) doFetchFavorite({method: 'post', data:{}});
-        else doFetchFavorite({method: 'delete'});
-    }, [isFavorite, doFetchFavorite]);
         
     function buttonClickHandler() {
         if(!user.isLoggedIn) {
             props.history.push('/login');
             return;
         }
-        if(isFavorite) setFavoriteCount(prevState => prevState - 1);
-        else setFavoriteCount(prevState => prevState + 1);
+        if(isFavorite) {
+            setFavoriteCount(prevState => prevState - 1);
+            doFetchFavorite({method: 'delete'});
+        }
+        else {
+            setFavoriteCount(prevState => prevState + 1);
+            doFetchFavorite({method: 'post', data:{}});
+        }
         setIsFavorite(prevState => !prevState);
     }
 
