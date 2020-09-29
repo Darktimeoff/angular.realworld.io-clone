@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import Form from './../../components/form/form';
 import { creators, handlers, functions} from '../../library/formLibrary';
 import { useFetch } from './../../library/hooksLibrary';
@@ -17,10 +17,10 @@ const NewArticle = props => {
         {value:tags, onChangeHandler: handlers.inputHandler(setTags), required: false },
     ]);
 
-   /*  useEffect(() => {
+    useEffect(() => {
         if(!response) return;
-        //props.history.push(`/article/${response.article.slug}`);
-    }, [response]) */
+        props.history.push(`/article/${response.article.slug}`);
+    }, [response, props.history])
 
     function submitHandler(event) {
         event.preventDefault();
