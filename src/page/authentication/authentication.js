@@ -5,6 +5,7 @@ import { creators, handlers, functions, validations} from '../../library/formLib
 import { useFetch, useLocalStorage } from '../../library/hooksLibrary';
 import { Redirect } from 'react-router-dom';
 import { CurrentUserContext } from '../../context/currentUser/currentUserContext';
+import  BackendErrors from '../../components/backendErrors/backendErrors';
 
 
 const Authentication = props => {
@@ -67,7 +68,7 @@ const Authentication = props => {
                         <p className="auth-login-subtitle"><a href={descriptionLink} className="auth-login-register">{descriptionText}?</a></p>
                         <span className="auth-login-error">
                             {functions.controlValid(formControls) ? '' : 'Вы ввели не верные данные'}
-                            {error ? error.toString() : ''}
+                            {error ? <BackendErrors errors={error.errors} /> : null}
                         </span>
                         <Form onSubmitHandler={submitHandler} buttonText={pageTitle} disabled={!functions.formIsValid(formControls)} formDisabled={isLoading} controlsCreate={formControls} />
                     </div>

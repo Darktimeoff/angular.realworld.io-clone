@@ -29,10 +29,9 @@ export function useFetch(url) {
             .then(res => {
                 setResponse(res.data);
                 setIsLoading(false);
-                setError(null);
             })
             .catch(error => {
-                setError(error);
+                setError(error.response.data);
                 setIsLoading(false);
             }) 
     }, [isLoading, baseUrl, url, options, token]); 
