@@ -6,8 +6,8 @@ import { CurrentUserContext } from './../../context/currentUser/currentUserConte
 
 const HomePage = props => {
     const [user] = useContext(CurrentUserContext);
-    const feedUrl = '/articles/feed?limit=10&offset=0';
-    const globalFeedUrl = '/articles?limit=10&offset=0';
+    const feedUrl = '/articles/feed?';
+    const globalFeedUrl = '/articles?';
 
     const tabsLinkCreator = [
         {
