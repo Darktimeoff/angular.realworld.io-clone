@@ -8,8 +8,10 @@ const Pagination = props => {
     useEffect(() =>{
         document.onscroll = (event) => {
             if(window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+               if(page.current <= props.maxPage) {
                 page.current += 1;
                 props.history.push(`${props.url}?page=${page.current}`)
+               }
             }
         }
         return () => {

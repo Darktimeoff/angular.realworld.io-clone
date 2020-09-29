@@ -28,9 +28,9 @@ const Feeds = props => {
             exact:link.exact,
             onClick: () => {
                 setArticleUrl(link.fetchUrl+`limit=${limit}&offset=0`);
+                setArticleList([]);
                 setResponse(null);
                 doFetchArtciles();
-                props.history.push(props.match.url);
             }
         }
     })
@@ -43,6 +43,7 @@ const Feeds = props => {
 
     useEffect(() => {
         if(!articles) return;
+        console.log(articleList, articles)
         setArticleList(prevState => prevState.concat(articles.articles))
     }, [articles])
 
@@ -68,7 +69,7 @@ const Feeds = props => {
                                 {articles && !articles.articles.length ? <p style={{textAlign: 'center'}}>No articles are here... yet.</p> : null}
                                 {isLoadingArticles ? <Loader /> : null}
                                 {errorArticles ? <BackendErrors errors={errorArticles.errors} /> : null}
-                                {articles ? <Pagination url={props.match.url}/> : null}
+                                {articles ? <Pagination maxPage={Math.ceil(articles.articlesCount/limit)} url={props.match.url}/> : null}
                             </div>
                         </div>
                     </div>
