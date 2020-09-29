@@ -11,11 +11,12 @@ import { creators, handlers, functions } from './../../library/formLibrary';
 import Comments from './../../components/comments/comments';
 import FavoriteButton from '../../components/button/FavoriteButton/FavoriteButton';
 import FollowButton from '../../components/button/followButton/followButton';
+import Loader from './../../components/loader/loader';
 
 const ArticleFull = props => {
     const [user] = useContext(CurrentUserContext);
     const [{response:articles}, doFetchArtciles] = useFetch(`/articles/${props.match.params.slug}`);
-    const [{response:comments}, doFetchComment] = useFetch(`/articles/${props.match.params.slug}/comments`);
+    const [{response:comments, error, isLoading:isLoadingComments}, doFetchComment] = useFetch(`/articles/${props.match.params.slug}/comments`);
     const [commentState, setCommentState] = useState('');
     const [commentList, setCommentList] = useState([]);
     const [isComment, setIsComment] = useState(false);
@@ -58,7 +59,7 @@ const ArticleFull = props => {
                     <FollowButton username={articles.article.author.username} following={articles.article.author.following} />
                     <FavoriteButton slug={props.match.params.slug} favorited={articles.article.favorited} favoritesCount={articles.article.favoritesCount} isFavoriteButton={true}/>
                 </UserInf>
-            </Information> : null}
+            </Information> : <Loader />}
             {articles ? <div className="container">
                     <div className="articleFull-wrapper">
                         <article className="article">
@@ -71,7 +72,7 @@ const ArticleFull = props => {
                             <FavoriteButton slug={props.match.params.slug} favorited={articles.article.favorited} favoritesCount={articles.article.favoritesCount} isFavoriteButton={true}/>
                         </UserInf>
                        <div className="articlFull-comments-wrapper">
-                            {user.isLoggedIn ? <Form onSubmitHandler={submitHandler} controlsCreate={formControlsCreate} buttonText='Post Comment'/> : <p style={{paddingTop: 50}}><Link to='/login'>Sign In</Link>or <Link to='/register'>sign up</Link> to add comments on this article.</p> }
+                            {user.isLoggedIn ? <Form onSubmitHandler={submitHandler} controlsCreate={formControlsCreate} buttonText='Post Comment'/> : <p style={{paddingTop: 50}}><Link to='/login' style={{color: '#5cb85c'}}>Sign in </Link>or<Link to='/register' style={{color: '#5cb85c'}}> sign up</Link> to add comments on this article.</p> }
                             {commentList.length ? <Comments comments={commentList}/> : null}
                        </div>
                     </div>

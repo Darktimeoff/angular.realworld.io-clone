@@ -1,9 +1,8 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import Information from './../../components/information/information';
 import Feeds from './../../components/feeds/feeds';
 import { CurrentUserContext } from './../../context/currentUser/currentUserContext';
-import Loader from './../../components/loader/loader';
-import BackendErrors from './../../components/backendErrors/backendErrors';
+
 
 const HomePage = props => {
     const [user] = useContext(CurrentUserContext);

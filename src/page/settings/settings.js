@@ -21,7 +21,7 @@ const Settings = props => {
         setUsername(currentUser.currentUser.username);
         setEmail(currentUser.currentUser.email);
         setBio(currentUser.currentUser.bio);
-        setUrl(currentUser.currentUser.image);
+        setUrl(currentUser.currentUser.image || '');
         doFetch({method: 'put', data: {user:{...currentUser.currentUser}}});
     }, [currentUser, doFetch])
 
@@ -43,7 +43,7 @@ const Settings = props => {
     }
 
     const logOut = () => {
-        setToken('')
+        localStorage.setItem('jwtToken', '')
         setCurrentUserState({isLoggedIn:null, isLoading:false, currentUser: null});
         props.history.push('/')
     }

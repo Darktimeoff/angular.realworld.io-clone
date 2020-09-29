@@ -3,6 +3,7 @@ import './form.scss';
 
 const Form = props => {
     const inputCreate = ({type='text', name='', placeholder='', required=true, onChangeHandler=null, value='', validation, valid, touched, isValid}, i) => {
+        console.log(value)
         return <fieldset 
                 className="form-group" 
                 key={i}>
@@ -32,7 +33,9 @@ const Form = props => {
                 placeholder={placeholder} 
                 rows={rows} 
                 required={required} 
-                onChange={onChangeHandler} 
+                onChange={(event) => {
+                    onChangeHandler(event);
+                }} 
                 value={value} 
                 />
             </fieldset>
