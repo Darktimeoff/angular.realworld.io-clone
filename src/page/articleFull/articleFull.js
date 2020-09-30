@@ -16,7 +16,7 @@ import Loader from './../../components/loader/loader';
 const ArticleFull = props => {
     const [user] = useContext(CurrentUserContext);
     const [{response:articles}, doFetchArtciles] = useFetch(`/articles/${props.match.params.slug}`);
-    const [{response:comments, error, isLoading:isLoadingComments}, doFetchComment] = useFetch(`/articles/${props.match.params.slug}/comments`);
+    const [{response:comments}, doFetchComment] = useFetch(`/articles/${props.match.params.slug}/comments`);
     const [commentState, setCommentState] = useState('');
     const [commentList, setCommentList] = useState([]);
     const [isComment, setIsComment] = useState(false);
@@ -27,7 +27,7 @@ const ArticleFull = props => {
     useEffect(() => {
         doFetchArtciles();
         doFetchComment({method: 'get'})
-    }, []);
+    }, [doFetchComment, doFetchArtciles]);
 
     useEffect(() => {
         if(!comments) return;

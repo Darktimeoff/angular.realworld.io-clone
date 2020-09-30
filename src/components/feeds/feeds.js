@@ -41,11 +41,10 @@ const Feeds = props => {
     useEffect(() => {
         if(props.isTagsShow) doFetchTags();
         doFetchArtciles();
-    },[]);
+    },[doFetchTags, doFetchArtciles, props.isTagsShow]);
 
     useEffect(() => {
         if(!articles) return;
-        console.log(articleList, articles)
         setArticleList(prevState => prevState.concat(articles.articles))
     }, [articles])
 
@@ -57,7 +56,7 @@ const Feeds = props => {
     useEffect(() => {
         if(!articles) return;
         doFetchArtciles()
-    }, [articleUrl]);
+    }, [articleUrl, doFetchArtciles]);
 
     const tagsClickHandler = (name) => {
         setTagName(name)

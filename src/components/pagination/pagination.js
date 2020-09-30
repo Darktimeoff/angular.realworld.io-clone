@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import {useEffect, useRef} from 'react';
 import './pagination.scss';
 import {withRouter} from 'react-router-dom';
 
@@ -19,7 +19,7 @@ const Pagination = ({limit, itemsCount, url, isLoadingArticles, history}) => {
         return () => {
             document.onscroll = null;
         }
-    },[]);
+    },[maxPage, url]);
 
     return null;
 }

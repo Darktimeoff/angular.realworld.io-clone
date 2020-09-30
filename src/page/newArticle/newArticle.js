@@ -8,7 +8,7 @@ const NewArticle = props => {
     const [description, setDescription] = useState('');
     const [body, setBody] = useState('');
     const [tags, setTags] = useState('');
-    const [{response, error, isLoading}, doFetch] = useFetch('/articles');
+    const [{response, error}, doFetch] = useFetch('/articles');
 
     const formControlsCreate = functions.addDateToFormControls(creators.newArticleControls , [
         {value:title, onChangeHandler: handlers.inputHandler(setTitle), required: true},
