@@ -93,7 +93,7 @@ const Feeds = props => {
                                 {articles && !articles.articles.length ? <p style={{textAlign: 'center'}}>No articles are here... yet.</p> : null}
                                 {isLoadingArticles ? <Loader /> : null}
                                 {errorArticles ? <BackendErrors errors={errorArticles.errors} /> : null}
-                                {articles ? <Pagination maxPage={Math.ceil(articles.articlesCount/limit)} url={props.match.url}/> : null}
+                                {articles ? <Pagination isLoading={isLoadingArticles} itemsCount={articles.articlesCount} limit={limit} url={props.match.url}/> : null}
                             </div>
                         </div>
                     </div>
