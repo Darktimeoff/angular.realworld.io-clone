@@ -20,8 +20,9 @@ const Feeds = props => {
     const [{response:tags, error:errorTags}, doFetchTags] = useFetch('/tags');
     const [{response:articles, error:errorArticles, isLoading:isLoadingArticles, setResponse}, doFetchArtciles] = useFetch(articleUrl);
     const [articleList, setArticleList] = useState([]);
+    const [tagName, setTagName] = useState('');
 
-    const tabsLink = props.tabsLinkCreator.map(link => {
+    let tabsLink = props.tabsLinkCreator.map(link => {
         return {
             text: link.textLink,
             href: link.href,
@@ -31,6 +32,7 @@ const Feeds = props => {
                 setArticleList([]);
                 setResponse(null);
                 doFetchArtciles();
+                if(tagName) setTagName('');
             }
         }
     })
@@ -57,6 +59,28 @@ const Feeds = props => {
         doFetchArtciles()
     }, [articleUrl]);
 
+    const tagsClickHandler = (name) => {
+        setTagName(name)
+        setArticleUrl(`/articles?tag=${name}&limit=10&offset=0`);
+        setArticleList([]);
+        setResponse(null);
+        doFetchArtciles();
+    }
+    
+    if(tagName) {
+        tabsLink = tabsLink.concat([{
+            text: '#'+tagName,
+            href: '/',
+            exact:false,
+            onClick: () => {
+                setArticleUrl(`/articles?tag=${tagName}&limit=10&offset=0`);
+                setArticleList([]);
+                setResponse(null);
+                doFetchArtciles();
+            }
+        }])
+    }
+
     return (
         <section className="feeds">
             <div className="container">
@@ -75,7 +99,7 @@ const Feeds = props => {
                     </div>
                     { props.isTagsShow 
                         ?  <div className="feeds-item">
-                            {tags ? <Tags onClickHandler={props.onTagsClickHandler} tagsList={tags.tags}/> : null}
+                            {tags ? <Tags onClickHandler={tagsClickHandler} tagsList={tags.tags}/> : null}
                             {errorTags ? <BackendErrors errors={errorTags.errors} /> : null}
                         </div>
                         : null
